@@ -51,3 +51,10 @@ push = false
 "src/filename/__init__.py" = [
     '__version__ = "{version}"',
 ]
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
