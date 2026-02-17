@@ -15,10 +15,12 @@ from ufilename import (
     policy_from_dict
 )
 
+
 def test_identity_policy():
     policy = IdentityPolicy()
     name = build_filename(policy, "test", ".txt")
     assert name == "test.txt"
+
 
 def test_timestamp_policy():
     policy = TimestampPolicy(fmt="%Y")
@@ -47,6 +49,7 @@ def test_random_hex_policy():
     assert name.endswith(".txt")
     assert len(name) == len("test_") + 6 + len(".txt")
 
+
 def test_increment_policy(tmp_path):
     policy = IncrementPolicy(width=2, start=1)
 
@@ -61,23 +64,27 @@ def test_increment_policy(tmp_path):
     name2 = build_filename(policy, "test", ".txt", directory=tmp_path)
     assert name2 == "test_02.txt"
 
+
 def test_uuid_policy():
     policy = UUIDPolicy()
     name = build_filename(policy, "test", ".txt")
     assert name.startswith("test_")
     assert len(name) > 10
 
+
 def test_hostname_policy():
     policy = HostnamePolicy()
     name = build_filename(policy, "test", ".txt")
     assert name.startswith("test_")
+
 
 def test_metadata_hash_policy():
     policy = MetadataHashPolicy(key="id", length=8)
     metadata = {"id": 12345}
     name = build_filename(policy, "test", ".txt", metadata=metadata)
     assert name.startswith("test_")
-    assert len(name) == 5 + 8 + 4 # test_ + 8 chars + .txt
+    assert len(name) == 5 + 8 + 4  # test_ + 8 chars + .txt
+
 
 def test_composite_policy():
     p1 = IdentityPolicy()
@@ -85,6 +92,7 @@ def test_composite_policy():
     policy = CompositePolicy(policies=[p1, p2])
     name = build_filename(policy, "test", ".txt")
     assert name == "test.txt"
+
 
 def test_serialization():
     data = {"type": "timestamp", "fmt": "%H"}

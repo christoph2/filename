@@ -382,11 +382,11 @@ class CompositePolicy(FilenamePolicy):
 # -----------------------------
 
 def build_filename(
-    policy: FilenamePolicy,
-    base: str,
-    ext: str,
-    directory: Optional[Path] = None,
-    metadata: Optional[Dict[str, Any]] = None,
+        policy: FilenamePolicy,
+        base: str,
+        ext: str,
+        directory: Optional[Path] = None,
+        metadata: Optional[Dict[str, Any]] = None,
 ) -> str:
     ctx = FilenameContext(
         base=base,
