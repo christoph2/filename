@@ -3,10 +3,10 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "filename"
+name = "ufilename"
 version = "0.1.0"
 authors = [
-  { name="Your Name", email="your.email@example.com" },
+  { name="Christoph Schueler", email="cpu12.gems@googlemail.com" },
 ]
 description = "A flexible filename generation library with various policies."
 readme = "README.md"
@@ -26,8 +26,8 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/christoph2/filename"
-"Bug Tracker" = "https://github.com/christoph2/filename/issues"
+"Homepage" = "https://github.com/christoph2/ufilename"
+"Bug Tracker" = "https://github.com/christoph2/ufilename/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -48,7 +48,7 @@ push = false
 "pyproject.toml" = [
     'version = "{version}"',
 ]
-"src/filename/__init__.py" = [
+"src/ufilename/__init__.py" = [
     '__version__ = "{version}"',
 ]
 
