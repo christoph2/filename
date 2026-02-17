@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 from dataclasses import dataclass, asdict, field
 from pathlib import Path
