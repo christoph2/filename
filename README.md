@@ -1,5 +1,7 @@
 # ufilename
 
+![ufilename](ufilename.png)
+
 A friendly, lightweight Python library for generating consistent, collision‑resistant filenames through composable policies. It is designed to keep your naming rules explicit, testable, and easy to evolve as your project grows.
 
 ## Why `ufilename`?
