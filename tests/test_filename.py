@@ -1,18 +1,16 @@
-import pytest
-from pathlib import Path
 from ufilename import (
-    build_filename,
-    IdentityPolicy,
-    PrefixPolicy,
-    SuffixPolicy,
-    RandomHexPolicy,
-    TimestampPolicy,
-    IncrementPolicy,
-    UUIDPolicy,
-    HostnamePolicy,
-    MetadataHashPolicy,
     CompositePolicy,
-    policy_from_dict
+    HostnamePolicy,
+    IdentityPolicy,
+    IncrementPolicy,
+    MetadataHashPolicy,
+    PrefixPolicy,
+    RandomHexPolicy,
+    SuffixPolicy,
+    TimestampPolicy,
+    UUIDPolicy,
+    build_filename,
+    policy_from_dict,
 )
 
 
@@ -26,6 +24,7 @@ def test_timestamp_policy():
     policy = TimestampPolicy(fmt="%Y")
     name = build_filename(policy, "test", ".txt")
     import datetime
+
     expected = f"test_{datetime.datetime.now().year}.txt"
     assert name == expected
 
