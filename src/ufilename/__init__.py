@@ -2,19 +2,19 @@ from __future__ import annotations
 
 __version__ = "0.1.1"
 
-from dataclasses import dataclass, asdict, field
-from pathlib import Path
-from datetime import datetime
-import uuid
-import socket
 import hashlib
 import secrets
-from typing import Any, Dict, Type, List, Optional, ClassVar, Protocol
-
+import socket
+import uuid
+from dataclasses import asdict, dataclass, field
+from datetime import datetime
+from pathlib import Path
+from typing import Any, ClassVar, Dict, List, Optional, Protocol, Type
 
 # -----------------------------
 # Core: Context & Base Policy
 # -----------------------------
+
 
 @dataclass
 class FilenameContext:
@@ -98,11 +98,13 @@ def policy_from_dict(data: Dict[str, Any]) -> FilenamePolicy:
 # Concrete policies
 # -----------------------------
 
+
 @register_policy
 class IdentityPolicy(FilenamePolicy):
     """
     Returns the base name as-is.
     """
+
     type_name: ClassVar[str] = "identity"
 
     @classmethod
@@ -118,6 +120,7 @@ class PrefixPolicy(FilenamePolicy):
     """
     Prepends a prefix to the base name.
     """
+
     type_name: ClassVar[str] = "prefix"
 
     def __init__(self, prefix: str):
@@ -141,6 +144,7 @@ class SuffixPolicy(FilenamePolicy):
     """
     Appends a suffix to the base name.
     """
+
     type_name: ClassVar[str] = "suffix"
 
     def __init__(self, suffix: str):
@@ -164,6 +168,7 @@ class RandomHexPolicy(FilenamePolicy):
     """
     Appends a random hex token to the base name.
     """
+
     type_name: ClassVar[str] = "random_hex"
 
     def __init__(self, length: int = 8):
@@ -190,6 +195,7 @@ class TimestampPolicy(FilenamePolicy):
     """
     Appends a timestamp to the base name.
     """
+
     type_name: ClassVar[str] = "timestamp"
 
     def __init__(self, fmt: str = "%Y%m%d_%H%M%S"):
@@ -214,6 +220,7 @@ class IncrementPolicy(FilenamePolicy):
     """
     Finds the next available sequence number in the target directory.
     """
+
     type_name: ClassVar[str] = "increment"
 
     def __init__(self, width: int = 3, start: int = 1):
@@ -251,6 +258,7 @@ class UUIDPolicy(FilenamePolicy):
     """
     Appends a UUID to the base name.
     """
+
     type_name: ClassVar[str] = "uuid"
 
     def __init__(self, version: int = 4):
@@ -277,6 +285,7 @@ class HostnamePolicy(FilenamePolicy):
     """
     Appends the host name to the base name.
     """
+
     type_name: ClassVar[str] = "hostname"
 
     def __init__(self, short: bool = True):
@@ -303,6 +312,7 @@ class MetadataHashPolicy(FilenamePolicy):
     """
     Generates a hash from metadata (or arbitrary data) in the context.
     """
+
     type_name: ClassVar[str] = "metadata_hash"
 
     def __init__(self, key: str = "params", algo: str = "sha256", length: int = 16):
@@ -312,11 +322,13 @@ class MetadataHashPolicy(FilenamePolicy):
 
     def to_dict(self) -> Dict[str, Any]:
         data = super().to_dict()
-        data.update({
-            "key": self.key,
-            "algo": self.algo,
-            "length": self.length,
-        })
+        data.update(
+            {
+                "key": self.key,
+                "algo": self.algo,
+                "length": self.length,
+            }
+        )
         return data
 
     @classmethod
@@ -347,12 +359,14 @@ class MetadataHashPolicy(FilenamePolicy):
 # Composition
 # -----------------------------
 
+
 @register_policy
 class CompositePolicy(FilenamePolicy):
     """
     Applies multiple policies to the base name in sequence.
     Each policy receives a context with the current base name.
     """
+
     type_name: ClassVar[str] = "composite"
 
     def __init__(self, policies: List[FilenamePolicy]):
@@ -381,12 +395,13 @@ class CompositePolicy(FilenamePolicy):
 # High-level helper
 # -----------------------------
 
+
 def build_filename(
-        policy: FilenamePolicy,
-        base: str,
-        ext: str,
-        directory: Optional[Path] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+    policy: FilenamePolicy,
+    base: str,
+    ext: str,
+    directory: Optional[Path] = None,
+    metadata: Optional[Dict[str, Any]] = None,
 ) -> str:
     ctx = FilenameContext(
         base=base,
