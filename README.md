@@ -57,10 +57,12 @@ Policies operate on a context object that can optionally include a target direct
 ```python
 from ufilename import build_filename, CompositePolicy, PrefixPolicy, TimestampPolicy
 
-policy = CompositePolicy([
-    PrefixPolicy("daily_"),
-    TimestampPolicy("%Y%m%d"),
-])
+policy = CompositePolicy(
+    [
+        PrefixPolicy("daily_"),
+        TimestampPolicy("%Y%m%d"),
+    ]
+)
 
 name = build_filename(policy, "report", ".csv")
 print(name)  # daily_report_20240217.csv
